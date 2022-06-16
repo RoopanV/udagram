@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
@@ -11,6 +12,7 @@ describe('FeedItemComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ FeedItemComponent ],
+      imports:[RouterModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
