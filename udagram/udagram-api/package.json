@@ -7,7 +7,7 @@
   },
   "main": "src/server.ts",
   "scripts": {
-    "start": "npm run build && node ./www/server.js",
+    "start": "npm i && npm run build && node ./www/server.js",
     "dev": "ts-node-dev src/server.ts --respawn",
     "deploy": "eb deploy",
     "build": "tsc --build --clean && tsc --build",
