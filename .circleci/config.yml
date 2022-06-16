@@ -1,29 +1,37 @@
 version: 2.1
 orbs:
+  # orgs contain basc recipes and reproducible actions (install node, aws, etc.)
   node: circleci/node@5.0.2
   eb: circleci/aws-elastic-beanstalk@2.0.1
   aws-cli: circleci/aws-cli@3.1.1
+  # different jobs are calles later in the workflows sections
 jobs:
-  install:
+  build:
     docker:
+      # the base image can run most needed actions with orbs
       - image: "cimg/node:14.15"
     steps:
+      # install node and checkout code
       - node/install:
           node-version: "14.15"
       - checkout
+      # Use root level package.json to install dependencies in the frontend app
       - run:
           name: Install Front-End Dependencies
           command: |
+            echo "NODE --version" 
+            echo $(node --version)
+            echo "NPM --version" 
+            echo $(npm --version)
             npm run frontend:install
       - run:
           name: Install API Dependencies
           command: |
             npm run api:install
-  build:
-    docker:
-      - image: "cimg/node:14.15"
-    steps:
-      - checkout
+      - run:
+          name: Front-End Lint
+          command: |
+            npm run frontend:lint
       - run:
           name: Front-End Build
           command: |
@@ -32,27 +40,11 @@ jobs:
           name: API Build
           command: |
             npm run api:build
-  lint:
-    docker:
-      - image: "cimg/base:lint"
-    steps:
-      - checkout
-      - run:
-          name: Front-End Lint
-          command: |
-            npm run frontend:lint
-  test:
-    docker:
-      - image: "cimg/base:test"
-    steps:
-      - checkout
-      - run:
-          name: Front-End Test
-          command: |
-            npm run frontend:test
+  # deploy step will run only after manual approval
   deploy:
     docker:
       - image: "cimg/base:stable"
+      # more setup needed for aws, node, elastic beanstalk
     steps:
       - node/install:
           node-version: "14.15"
@@ -67,18 +59,15 @@ jobs:
 workflows:
   udagram:
     jobs:
-      - install
       - build
-      - lint
-      - test
-      - hold:
-          filters:
-            branches:
-              only:
-                - main
-          type: approval
-          requires:
-            - build
+      # - hold:
+      #     filters:
+      #       branches:
+      #         only:
+      #           - main
+      #     type: approval
+      #     requires:
+      #       - build
       - deploy:
-          requires:
-            - hold
+          # requires:
+          #   - hold
