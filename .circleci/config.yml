@@ -24,22 +24,26 @@ jobs:
             echo "NPM --version" 
             echo $(npm --version)
             npm run frontend:install
+      # TODO: Install dependencies in the the backend API
       - run:
           name: Install API Dependencies
           command: |
             npm run api:install
-      # - run:
-      #     name: Front-End Lint
-      #     command: |
-      #       npm run frontend:lint
+      # TODO: Lint the frontend
+      - run:
+          name: Front-End Lint
+          command: |
+            npm run frontend:lint
+      # TODO: Build the frontend app
       - run:
           name: Front-End Build
           command: |
             npm run frontend:build
-      # - run:
-      #     name: API Build
-      #     command: |
-      #       npm run api:build
+      # TODO: Build the backend API
+      - run:
+          name: API Build
+          command: |
+            npm run api:build
   # deploy step will run only after manual approval
   deploy:
     docker:
@@ -48,27 +52,27 @@ jobs:
     steps:
       - node/install:
           node-version: "14.15"
-      # - eb/setup
+      - eb/setup
       - aws-cli/setup
       - checkout
       - run:
           name: Deploy App
+          # TODO: Install, build, deploy in both apps
           command: |
             npm run deploy
 
 workflows:
   udagram:
     jobs:
-      # - build
-      # - hold:
-      #     filters:
-      #       branches:
-      #         only:
-      #           - main
-      #     type: approval
-      #     requires:
-      #       - build
-      - deploy
-      # - deploy:
-          # requires:
-          #   - hold
+      - build
+      - hold:
+          filters:
+            branches:
+              only:
+                - main
+          type: approval
+          requires:
+            - build
+      - deploy:
+          requires:
+            - hold
