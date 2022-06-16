@@ -3,6 +3,7 @@ orbs:
   node: circleci/node@5.0.2
   eb: circleci/aws-elastic-beanstalk@2.0.1
   aws-cli: circleci/aws-cli@3.1.1
+  browser-tools: circleci/browser-tools@1.2.3
 jobs:
   build:
     docker:
@@ -10,14 +11,12 @@ jobs:
     steps:
       - node/install:
           node-version: "14.15"
+      - browser-tools/install-chrome
+      - browser-tools/install-chromedriver
       - checkout
       - run:
           name: Install Front-End Dependencies
           command: |
-            echo "NODE --version" 
-            echo $(node --version)
-            echo "NPM --version" 
-            echo $(npm --version)
             npm run frontend:install
       - run:
           name: Install API Dependencies
@@ -35,6 +34,10 @@ jobs:
           name: API Build
           command: |
             npm run api:build
+      - run:
+          name: Front-End Test
+          command: |
+            npm run frontend:test
       - persist_to_workspace:
           root: udagram
           paths:
