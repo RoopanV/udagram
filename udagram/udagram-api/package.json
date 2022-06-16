@@ -2,12 +2,9 @@
   "name": "udagram-api",
   "version": "2.0.0",
   "description": "",
-  "engines": {
-    "node": "14.15.0"
-  },
   "main": "src/server.ts",
   "scripts": {
-    "start": "npm i && npm run build && node ./www/server.js",
+    "start": "npm i && node ./www/server.js",
     "dev": "ts-node-dev src/server.ts --respawn",
     "deploy": "eb deploy",
     "build": "tsc --build --clean && tsc --build",
