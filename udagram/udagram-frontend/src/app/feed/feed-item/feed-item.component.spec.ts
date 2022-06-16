@@ -12,7 +12,7 @@ describe('FeedItemComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ FeedItemComponent ],
-      imports:[RouterModule],
+      imports: [RouterModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
