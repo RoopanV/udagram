@@ -50,9 +50,9 @@ jobs:
           node-version: "14.15"
       - aws-cli/setup
       - checkout
-       - attach_workspace:
+      - attach_workspace:
           at: udagram/udagram-frontend/www
-       - run:
+      - run:
           name: Deploy App
           command: |
             npm run deploy
