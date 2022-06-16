@@ -49,7 +49,7 @@ jobs:
       - aws-cli/setup
       - checkout
       - attach_workspace:
-          at: /udagram/udagram-frontend
+          at: udagram/udagram-frontend
       - run:
           name: Deploy App
           # TODO: Install, build, deploy in both apps
