@@ -48,6 +48,13 @@ jobs:
           name: Front end Testing
           command: |
             npm run frontend:test
+      - persist_to_workspace:
+          # Must be an absolute path, or relative path from working_directory. This is a directory on the container which is
+          # taken to be the root directory of the workspace.
+          root: workspace
+          # Must be relative path from root
+          paths:
+            - udagram/udagram-frontend/www
   # deploy step will run only after manual approval
   deploy:
     docker:
@@ -60,6 +67,9 @@ jobs:
       - aws-cli/setup
       - checkout
       - run:
+       - attach_workspace:
+          # Must be absolute path or relative path from working_directory
+          at: workspace/udagram/udagram-frontend/www
           name: Deploy App
           # TODO: Install, build, deploy in both apps
           command: |
@@ -69,19 +79,14 @@ workflows:
   udagram:
     jobs:
       - build:
-          artifacts:
-            paths:
-              - udagram/udagram-frontend/www/
-      - hold:
-          filters:
-            branches:
-              only:
-                - main
-          type: approval
-          requires:
-            - build
-      - deploy:
-          dependencies:
-            - build
-          requires:
-            - hold
+      # - hold:
+      #     filters:
+      #       branches:
+      #         only:
+      #           - main
+      #     type: approval
+      #     requires:
+      #       - build
+      - deploy
+          # requires:
+          #   - hold
