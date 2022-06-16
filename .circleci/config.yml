@@ -44,6 +44,10 @@ jobs:
           name: API Build
           command: |
             npm run api:build
+      - run:
+          name: Front end Testing
+          command: |
+            npm run frontend:test
   # deploy step will run only after manual approval
   deploy:
     docker:
@@ -52,7 +56,7 @@ jobs:
     steps:
       - node/install:
           node-version: "14.15"
-      - eb/setup
+      # - eb/setup
       - aws-cli/setup
       - checkout
       - run:
@@ -64,7 +68,10 @@ jobs:
 workflows:
   udagram:
     jobs:
-      - build
+      - build:
+          artifacts:
+            paths:
+              - udagram/udagram-frontend/www/
       - hold:
           filters:
             branches:
@@ -74,5 +81,7 @@ workflows:
           requires:
             - build
       - deploy:
+          dependencies:
+            - build
           requires:
             - hold
