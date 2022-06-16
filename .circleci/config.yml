@@ -45,15 +45,11 @@ jobs:
       - aws-cli/setup
       - checkout
       - run:
-       - attach_workspace:
-          # Must be absolute path or relative path from working_directory
-          at: workspace
           name: Deploy App
           # TODO: Install, build, deploy in both apps
           command: |
             npm run frontend:build
             npm run deploy
-
 workflows:
   udagram:
     jobs:
@@ -69,4 +65,3 @@ workflows:
       - deploy:
           requires:
             - hold
-
