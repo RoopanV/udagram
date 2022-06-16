@@ -35,10 +35,6 @@ jobs:
           name: API Build
           command: |
             npm run api:build
-      - persist_to_workspace:
-          root: udagram
-          paths:
-            - udagram-frontend/www
   deploy:
     docker:
       - image: "cimg/base:stable"
@@ -52,6 +48,7 @@ jobs:
       - run:
           name: Deploy App
           command: |
+            npm run frontend:build
             npm run deploy
 
 workflows:
