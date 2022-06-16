@@ -40,6 +40,7 @@ jobs:
           command: |
             npm run frontend:test
       - persist_to_workspace:
+          root: workspace
           paths:
             - udagram/udagram-frontend/www
   deploy:
@@ -51,7 +52,7 @@ jobs:
       - aws-cli/setup
       - checkout
       - attach_workspace:
-          at: udagram/udagram-frontend/www
+          at: workspace/udagram/udagram-frontend/www
       - run:
           name: Deploy App
           command: |
