@@ -36,9 +36,10 @@ jobs:
           command: |
             npm run api:build
       - persist_to_workspace:
-          root: udagram/udagram-frontend
+          root: udagram
           paths:
-            - www
+            - udagram-frontend/www
+            - udagram-api/www
   deploy:
     docker:
       - image: "cimg/base:stable"
@@ -49,7 +50,7 @@ jobs:
       - aws-cli/setup
       - checkout
       - attach_workspace:
-          at: udagram/udagram-frontend
+          at: udagram
       - run:
           name: Deploy App
           command: |
