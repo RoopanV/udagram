@@ -48,7 +48,7 @@ jobs:
       - aws-cli/setup
       - checkout
       - attach_workspace:
-          at: udagram/udagram-frontend/www
+          at: www
       - run:
           name: Deploy App
           command: |
