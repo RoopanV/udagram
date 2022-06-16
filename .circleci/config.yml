@@ -35,33 +35,36 @@ jobs:
           name: API Build
           command: |
             npm run api:build
+      - persist_to_workspace:
+          root: udagram/udagram-frontend/www
   deploy:
     docker:
       - image: "cimg/base:stable"
     steps:
       - node/install:
           node-version: "14.15"
-      - eb/setup
+      # - eb/setup
       - aws-cli/setup
       - checkout
+      - attach_workspace:
+          at: /udagram/udagram-frontend
       - run:
           name: Deploy App
           # TODO: Install, build, deploy in both apps
           command: |
-            npm run frontend:build
             npm run deploy
 workflows:
   udagram:
     jobs:
       - build
-      - hold:
-          filters:
-            branches:
-              only:
-                - main
-          type: approval
-          requires:
-            - build
+      # - hold:
+      #     filters:
+      #       branches:
+      #         only:
+      #           - main
+      #     type: approval
+      #     requires:
+      #       - build
       - deploy:
           requires:
             - hold
