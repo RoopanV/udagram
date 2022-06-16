@@ -36,14 +36,16 @@ jobs:
           command: |
             npm run api:build
       - persist_to_workspace:
-          root: udagram/udagram-frontend/www
+          root: udagram/udagram-frontend
+          paths:
+            - www
   deploy:
     docker:
       - image: "cimg/base:stable"
     steps:
       - node/install:
           node-version: "14.15"
-      # - eb/setup
+      - eb/setup
       - aws-cli/setup
       - checkout
       - attach_workspace:
@@ -65,4 +67,6 @@ workflows:
       #     type: approval
       #     requires:
       #       - build
-      - deploy
+      - deploy:
+          requires:
+            - hold
