@@ -1,8 +1,9 @@
 .elasticbeanstalk/
 src/
-node_modules
+node_modules/
 .env
 .eslintrc.json
 .gitignore
 tsconfig.json
 tslint.json
+bin/

@@ -30,9 +30,6 @@ Postgres database is used to save and retrieve the data of the user handled in t
 `udagram-api` is hosted in AWS Beanstack. It is the central system which handles all the api calls. It validates the signed in user, get and store the feeds, register the user information to database, generates presigned url to store fils AWS S3.
 ![Screenshot of elastic beanstack](../screenshots/backend-beanstack.png)
 
-#### Environment variables added to EBS
-![Screenshot of elastic beanstack](../screenshots/environemnt-variable-beanstack.png)
-
 ### AWS S3 - Angular
 `udagram-frontend`application is hosted here. When any user access our application, the files are served from here.
 

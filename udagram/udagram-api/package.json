@@ -9,7 +9,7 @@
   "scripts": {
     "start": "npm i && node ./www/server.js",
     "dev": "ts-node-dev src/server.ts --respawn",
-    "deploy": "eb deploy",
+    "deploy": "chmod +x bin/deploy.sh && bin/deploy.sh",
     "build": "tsc --build --clean && tsc --build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
