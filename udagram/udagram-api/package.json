@@ -9,7 +9,7 @@
   "scripts": {
     "start": "npm i && node ./www/server.js",
     "dev": "ts-node-dev src/server.ts --respawn",
-    "deploy": "eb setenv POSTGRES_USERNAME=$POSTGRES_USERNAME POSTGRES_PASSWORD=$POSTGRES_PASSWORD POSTGRES_DB=$POSTGRES_DB PORT=$PORT POSTGRES_HOST=$POSTGRES_HOST AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY AWS_BUCKET=$AWS_BUCKET URL=$URL JWT_SECRET=$JWT_SECRET && chmod +x bin/deploy.sh && bin/deploy.sh",
+    "deploy": "chmod +x bin/deploy.sh && bin/deploy.sh",
     "build": "tsc --build --clean && tsc --build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

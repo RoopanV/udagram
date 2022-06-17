@@ -14,35 +14,35 @@ jobs:
       # Installing NodeJS
       - node/install:
           node-version: "14.15"
-      # Installing ChromeHeadless browser for testing
-      - browser-tools/install-chrome
-      - browser-tools/install-chromedriver
-      - checkout
-      # All stages below are self explanatory
-      - run:
-          name: Install Front-End Dependencies
-          command: |
-            npm run frontend:install
+      # # Installing ChromeHeadless browser for testing
+      # - browser-tools/install-chrome
+      # - browser-tools/install-chromedriver
+      # - checkout
+      # # All stages below are self explanatory
+      # - run:
+      #     name: Install Front-End Dependencies
+      #     command: |
+      #       npm run frontend:install
       - run:
           name: Install API Dependencies
           command: |
             npm run api:install
-      - run:
-          name: Front-End Lint
-          command: |
-            npm run frontend:lint
-      - run:
-          name: Front-End Build
-          command: |
-            npm run frontend:build
+      # - run:
+      #     name: Front-End Lint
+      #     command: |
+      #       npm run frontend:lint
+      # - run:
+      #     name: Front-End Build
+      #     command: |
+      #       npm run frontend:build
       - run:
           name: API Build
           command: |
             npm run api:build
-      - run:
-          name: Front-End Test
-          command: |
-            npm run frontend:test
+      # - run:
+      #     name: Front-End Test
+      #     command: |
+      #       npm run frontend:test
       # Taking the workspace backup so we can use in deploy stage otherwise we need to repeat the steps again
       - persist_to_workspace:
           root: udagram
@@ -71,15 +71,15 @@ workflows:
   udagram:
     jobs:
       - build
-      - hold:
-          filters:
-            branches:
-              only:
-                - main
-          type: approval
-          requires:
-            - build
+      # - hold:
+      #     filters:
+      #       branches:
+      #         only:
+      #           - main
+      #     type: approval
+      #     requires:
+      #       - build
       - deploy:
           # Waiting for manual approval
           requires:
-            - hold
+            - build
