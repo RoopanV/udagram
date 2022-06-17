@@ -6,7 +6,7 @@ CircleCI is used to create pipeline. It is listening on the main branch. Once an
 ## High level View of Pipeline
 ![Screenshot of pipeline overview](../screenshots/pipeline-architecture.png)
 
-### AWS Config
+### ENV Config
 All the required required environment variables are passed to the pipeline.
 ![Screenshot of env variable in pipeline](../screenshots/environment-variable-circleci.png)
 
