@@ -17,7 +17,7 @@ jobs:
       # # Installing ChromeHeadless browser for testing
       # - browser-tools/install-chrome
       # - browser-tools/install-chromedriver
-      # - checkout
+      - checkout
       # # All stages below are self explanatory
       # - run:
       #     name: Install Front-End Dependencies
